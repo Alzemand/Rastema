@@ -49,18 +49,18 @@ def _():
              URL('default', 'ver_fornecedor')),
              ]),
           (T('Equipamentos'), False, '#', [
-             (T('Cadastro'), True,
-             URL('default', 'suporte')),
+             (T('Cadastro Unitário'), True,
+             URL('default', 'cadastro_equipamento')),
              (T('Consulta'), True,
-             URL('default', 'suporte')),
+             URL('default', 'ver_equipamento')),
              ]),
           (T('Pedidos'), False, '#', [
-             (T('Cadastro'), True,
-             URL('default', 'suporte')),
+             (T('Locação'), True,
+             URL('default', 'cadastro_pedido')),
              (T('Consulta'), True,
              URL('default', 'suporte')),
              ]),
-        #   (T('Empresas'), False, '#', [
+          (T('Relatórios'), False,  URL('default', 'suporte'))
         #      (T('Convenio'), True,
         #      URL('default', 'ver_aluno')),
         #      (T('Vagas'), True,

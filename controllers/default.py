@@ -72,7 +72,7 @@ def teste():
 def cadastro_fornecedor():
     form = SQLFORM(Fornecedor)
     if form.process().accepted:
-        session.flash = 'Novo Fornecedor cadastrado: %s' % form.vars.nome
+        session.flash = 'Novo Fornecedor: %s' % form.vars.nome
         redirect(URL('cadastro_fornecedor'))
     elif form.errors:
         response.flash = 'Erros encontrados no formulário'
@@ -81,9 +81,40 @@ def cadastro_fornecedor():
             response.flash = 'Preencha o formulário'
     return dict(form=form)
 
+def cadastro_equipamento():
+    form = SQLFORM(Equipamento)
+    if form.process().accepted:
+        session.flash = 'Novo Equipamento: %s' % form.vars.nome
+        nome = form.vars.nome
+        detalhe = form.vars.descricao
+        nome_detalhe = nome + ' ' + detalhe
+        db(db.equipamento.id == form.vars.id).update(detalhe=nome_detalhe)
+        redirect(URL('cadastro_equipamento'))
+    elif form.errors:
+        response.flash = 'Erros encontrados no formulário'
+    else:
+        if not response.flash:
+            response.flash = ''
+    return dict(form=form)
+
+def cadastro_pedido():
+    form = SQLFORM(Fornecedor_Equipamento)
+    if form.process().accepted:
+        session.flash = 'Novo pedido: %s' % form.vars.nome
+        redirect(URL('cadastro_pedido'))
+    elif form.errors:
+        response.flash = 'Erros encontrados no formulário'
+    else:
+        if not response.flash:
+            response.flash = ''
+    return dict(form=form)
 
 # READ
 
 def ver_fornecedor():
-    grid = SQLFORM.grid(Fornecedor)
+    grid = SQLFORM.grid(Fornecedor, fields =[db.fornecedor.cnpj, db.fornecedor.nome, db.fornecedor.telefone, db.fornecedor.email], maxtextlength=16,exportclasses=dict(tsv_with_hidden_cols=False, csv=False, xml=False, json=False))
+    return dict(grid=grid)
+
+def ver_equipamento():
+    grid = SQLFORM.grid(Equipamento, fields=[db.equipamento.nome, db.equipamento.descricao] ,maxtextlength=16,exportclasses=dict(tsv_with_hidden_cols=False, csv=False, xml=False, json=False))
     return dict(grid=grid)

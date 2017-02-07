@@ -1,0 +1,71 @@
+{{extend 'layout.html'}}
+
+{{=form.custom.begin}}
+
+<body class="grey lighten-3">
+<h5 class="header col s12 light">Cadastrar Fornecedor</h5>
+<br><br><br><br>
+<div class="container">
+	<div class="container">
+		<div class="card-panel hoverable"><br>
+		<div class="row">
+			<div class="container">
+				<div style="text-align: center;"><img class="responsive-img" src="/Rastema/static/images/locar.svg" height="100px" width="100px"><br><br>
+		  </div>
+
+			<div class="row">
+				<div class="col s12">
+					<label>Fornecedor</label>
+					{{=form.custom.widget.fornecedor}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s12">
+					<label>Equipamento</label>
+					{{=form.custom.widget.equipamento}}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s6">
+					{{=form.custom.widget.tag}}
+				<label>TAG</label>
+				</div>
+				<div class="input-field col s6">
+					{{=form.custom.widget.valor}}
+				<label>Valor</label>
+				</div>
+			</div>
+
+
+
+
+	</div>
+		</div>
+		<br>
+		<div class="right">
+
+		</div>
+			</div> 	<!-- Fim do card -->
+			<br>
+			<div class="right">
+				<button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+					<i class="material-icons right">send</i>
+			  </button>
+			</div>
+
+ 			</div>
+ 		</div>
+ 	<br>
+
+	</div>
+</div>
+</div>
+</div>
+ <br><br><br><br>
+</body>
+
+
+
+{{=form.custom.end}}

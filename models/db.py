@@ -89,12 +89,12 @@ auth.settings.reset_password_requires_verification = True
 #########################################################################
 
 # Conexão MYSQL
-db = DAL('mysql://root:linux@localhost/rastema')
+db = DAL('mysql://root:linux@localhost/rastema', bigint_id=True)
 
 # Tabela Fornecedor
 
 Fornecedor = db.define_table('fornecedor',
-    Field('cnpj', 'decimal(14,0)', widget = lambda field, value:
+    Field('cnpj', 'bigint', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('razao_social', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
@@ -106,4 +106,26 @@ Fornecedor = db.define_table('fornecedor',
     SQLFORM.widgets.string.widget(field, value, _class='validate', _type='email')),
     primarykey=['cnpj'],
     format = "%(nome)s"
+    )
+
+Equipamento = db.define_table('equipamento',
+    Field('nome', 'string' , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('descricao', 'string' , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('detalhe', 'string' , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    format = "%(detalhe)s"
+    )
+
+Fornecedor_Equipamento = db.define_table('fornecedor_equipamento',
+    Field ('fornecedor', 'reference fornecedor', notnull=True,  widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
+    Field ('equipamento', 'reference equipamento', notnull=True, widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
+    Field('tag', 'bigint',notnull=False , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('valor', 'decimal(7,2)', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    primarykey=['tag']
     )
