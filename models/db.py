@@ -119,13 +119,24 @@ Equipamento = db.define_table('equipamento',
     )
 
 Fornecedor_Equipamento = db.define_table('fornecedor_equipamento',
-    Field ('fornecedor', 'reference fornecedor', notnull=True,  widget = lambda field, value:
+    Field('fornecedor', 'reference fornecedor', notnull=True,  widget = lambda field, value:
     SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
-    Field ('equipamento', 'reference equipamento', notnull=True, widget = lambda field, value:
+    Field('equipamento', 'reference equipamento', notnull=True, widget = lambda field, value:
     SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
-    Field('tag', 'bigint',notnull=False , widget = lambda field, value:
+    Field('fornecedor_nome', 'string', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('equipamento_nome', 'string', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('tag', 'bigint', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('valor', 'decimal(7,2)', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    primarykey=['tag']
+    format = "%(fornecedor_nome)s - %(equipamento_nome)s"
+    )
+
+Almoxarife = db.define_table('almoxarife',
+    Field('fornecedor_equipamento', 'reference fornecedor_equipamento', notnull=True,  widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
+    Field('tag', 'bigint', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
     )

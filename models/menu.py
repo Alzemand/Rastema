@@ -58,7 +58,7 @@ def _():
              (T('Locação'), True,
              URL('default', 'cadastro_pedido')),
              (T('Consulta'), True,
-             URL('default', 'suporte')),
+             URL('default', 'ver_locacao')),
              ]),
           (T('Relatórios'), False,  URL('default', 'suporte'))
         #      (T('Convenio'), True,

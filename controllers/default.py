@@ -101,6 +101,24 @@ def cadastro_pedido():
     form = SQLFORM(Fornecedor_Equipamento)
     if form.process().accepted:
         session.flash = 'Novo pedido: %s' % form.vars.nome
+        for row in db(db.equipamento.id == form.vars.equipamento).select():
+            eqpt_select = row
+        for row in db(db.fornecedor.cnpj == form.vars.fornecedor).select():
+            forn_select = row
+        db(db.fornecedor_equipamento.equipamento == form.vars.equipamento).update(equipamento_nome=eqpt_select.detalhe)
+        db(db.fornecedor_equipamento.fornecedor == form.vars.fornecedor).update(fornecedor_nome=forn_select.nome)
+        redirect(URL('cadastro_pedido'))
+    elif form.errors:
+        response.flash = 'Erros encontrados no formulário'
+    else:
+        if not response.flash:
+            response.flash = ''
+    return dict(form=form)
+
+def almoxarife():
+    form = SQLFORM(Almoxarife)
+    if form.process().accepted:
+        session.flash = 'Novo pedido:'
         redirect(URL('cadastro_pedido'))
     elif form.errors:
         response.flash = 'Erros encontrados no formulário'
@@ -117,4 +135,8 @@ def ver_fornecedor():
 
 def ver_equipamento():
     grid = SQLFORM.grid(Equipamento, fields=[db.equipamento.nome, db.equipamento.descricao] ,maxtextlength=16,exportclasses=dict(tsv_with_hidden_cols=False, csv=False, xml=False, json=False))
+    return dict(grid=grid)
+
+def ver_locacao():
+    grid = SQLFORM.grid(Fornecedor_Equipamento, maxtextlength=16,exportclasses=dict(tsv_with_hidden_cols=False, csv=False, xml=False, json=False))
     return dict(grid=grid)
