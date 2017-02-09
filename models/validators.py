@@ -11,4 +11,3 @@ Fornecedor.telefone.requires = IS_TELEFONE()
 # Validador de Pedido
 
 Fornecedor_Equipamento.valor.requires = E_DINHEIRO()
-Fornecedor_Equipamento.tag.requires = IS_EMPTY_OR(IS_NOT_IN_DB(db, 'Fornecedor_Equipamento.tag'))
