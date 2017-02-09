@@ -108,6 +108,8 @@ Fornecedor = db.define_table('fornecedor',
     format = "%(nome)s"
     )
 
+# Tabela de Equipamento
+
 Equipamento = db.define_table('equipamento',
     Field('nome', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
@@ -118,25 +120,45 @@ Equipamento = db.define_table('equipamento',
     format = "%(detalhe)s"
     )
 
+# Tabela de vinculo de fornecedor e equipamento (locação)
+
 Fornecedor_Equipamento = db.define_table('fornecedor_equipamento',
-    Field('fornecedor', 'reference fornecedor', notnull=True,  widget = lambda field, value:
-    SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
-    Field('equipamento', 'reference equipamento', notnull=True, widget = lambda field, value:
-    SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
+    Field('fornecedor', 'reference fornecedor',  widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='browser-default'), ondelete='SET NULL'),
+    Field('equipamento', 'reference equipamento',  widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='browser-default'), ondelete='SET NULL'),
     Field('fornecedor_nome', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('equipamento_nome', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('valor', 'decimal(7,2)', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    format = "%(equipamento_nome)s - %(fornecedor_nome)s"
+    )
+
+# Tabela de recebimento de almoxarifado
+
+Almoxarife = db.define_table('almoxarife',
     Field('tag', 'bigint', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('fornecedor_equipamento', 'reference fornecedor_equipamento',  widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='browser-default'), ondelete='SET NULL'),
+    Field('ax_cod', 'bigint', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('plataforma', 'string', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('nf_entrada', 'integer', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('nf_embarque', 'integer', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('valor', 'decimal(7,2)', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    format = "%(fornecedor_nome)s - %(equipamento_nome)s"
-    )
-
-Almoxarife = db.define_table('almoxarife',
-    Field('fornecedor_equipamento', 'reference fornecedor_equipamento', notnull=True,  widget = lambda field, value:
-    SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
-    Field('tag', 'bigint', widget = lambda field, value:
+    Field('data_recebida', 'date', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('data_retirada', 'date', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('status', 'string', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='browser-default')),
+    primarykey=['tag'],
+    format = "%(tag)s"
     )

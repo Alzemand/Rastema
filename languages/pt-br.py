@@ -277,6 +277,7 @@
 'RAM Cache Keys': 'RAM Cache Keys',
 'Ram Cleared': 'Ram Cleared',
 'Razao Social': 'Razao Social',
+'Receber': 'Receber',
 'Recipes': 'Receitas',
 'Record': 'Registro',
 'record does not exist': 'registro não existe',
