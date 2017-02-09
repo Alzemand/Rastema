@@ -99,8 +99,14 @@ def cadastro_equipamento():
 
 def cadastro_pedido():
     form = SQLFORM(Fornecedor_Equipamento)
+    cont = 0
     if form.process().accepted:
-        session.flash = 'Novo pedido: %s' % form.vars.nome
+        quantidade = request.vars.quantidade
+        quantidade = int(quantidade)
+        while quantidade > 1:
+            db.fornecedor_equipamento.insert(fornecedor=form.vars.fornecedor, equipamento=form.vars.equipamento, valor=form.vars.valor)
+            quantidade = quantidade - 1
+        session.flash = 'Pedido Realizado'
         for row in db(db.equipamento.id == form.vars.equipamento).select():
             eqpt_select = row
         for row in db(db.fornecedor.cnpj == form.vars.fornecedor).select():
