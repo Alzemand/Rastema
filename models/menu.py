@@ -14,7 +14,7 @@ response.subtitle = ''
 
 ## read more at http://dev.w3.org/html5/markup/meta.name.html
 response.meta.author = 'Edilson Alzemand <edilson.alzemand@gmail.com>'
-response.meta.description = 'Sigedo'
+response.meta.description = 'Rastema'
 response.meta.keywords = 'web2py, python, framework'
 response.meta.generator = 'Web2py Web Framework'
 
@@ -60,6 +60,8 @@ def _():
              (T('Consulta'), True,
              URL('default', 'ver_locacao')),
              (T('Receber'), True,
+             URL('default', 'almoxarife')),
+             (T('Devolução'), True,
              URL('default', 'suporte')),
              ]),
           (T('Relatórios'), False,  URL('default', 'suporte'))

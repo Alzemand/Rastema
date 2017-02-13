@@ -3,7 +3,7 @@
 {{=form.custom.begin}}
 
 <body class="grey lighten-3">
-<h5 class="header col s12 light">Cadastrar Fornecedor</h5>
+<h5 class="header col s12 light">Recebimento de Equipamentos</h5>
 <br><br><br><br>
 <div class="container">
 	<div class="container">
@@ -15,40 +15,42 @@
 
 			<div class="row">
 				<div class="col s12">
-					<label>Fornecedor</label>
-					{{=form.custom.widget.fornecedor}}
+					<label>Pedido</label>
+					{{=form.custom.widget.fornecedor_equipamento}}
+
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col s12">
-					<label>Equipamento</label>
-					{{=form.custom.widget.equipamento}}
+					<label>Plataforma de Destino</label>
+					{{=form.custom.widget.plataforma}}
+
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="input-field col s6">
-					<input name="quantidade" type="number" class="validate">
-				<label>Quantidade</label>
+					{{=form.custom.widget.ax_cod}}
+				<label>Código AX</label>
 				</div>
 				<div class="input-field col s6">
-					{{=form.custom.widget.valor}}
-				<label>Valor locação (DIA)</label>
+					{{=form.custom.widget.tag}}
+				<label>TAG</label>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s6">
-					<label>Data do pedido</label>
-					{{=form.custom.widget.data_pedido}}
-
+				<div class="input-field col s6">
+					{{=form.custom.widget.nf_entrada}}
+				<label>NF recebimento</label>
 				</div>
-				<div class="col s6">
-					<label>Previsão de Devolução</label>
-					{{=form.custom.widget.data_prevista_fim}}
+				<div class="input-field col s6">
+					{{=form.custom.widget.nf_saida}}
+				<label>TAG</label>
 				</div>
 			</div>
+
 
 
 
@@ -76,6 +78,7 @@
 </div>
  <br><br><br><br>
 </body>
+
 
 
 {{=form.custom.end}}
