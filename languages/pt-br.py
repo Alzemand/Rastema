@@ -104,6 +104,8 @@
 'Data do Inicio': 'Data do Inicio',
 'Data fim': 'Data fim',
 'Data Nasc': 'Data Nasc',
+'data no formato dd-mm-aaaa': 'data no formato dd-mm-aaaa',
+'data no formato DD-MM-AAAA': 'data no formato DD-MM-AAAA',
 'Data Pedido': 'Data Pedido',
 'Data Prevista Fim': 'Data Prevista Fim',
 'Data prevista fim': 'Data prevista fim',
