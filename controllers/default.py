@@ -166,7 +166,6 @@ def ver_fornecedor():
     return dict(grid=grid)
 
 def ver_equipamento():
-
     if 'edit' in request.args:
         edit = request.args
         response.flash = edit

@@ -16,3 +16,4 @@ Fornecedor_Equipamento.valor.requires = E_DINHEIRO()
 
 #Almoxarife.fornecedor.requires = IS_EMPTY_OR(IS_NOT_EMPTY(db, 'almoxarife.fornecedor'))
 Almoxarife.plataforma.requires = IS_IN_SET(['BASE', 'P-18', 'Outro'])
+Almoxarife.data_recebida.requires = IS_DATE(error_message='data no formato dd-mm-aaaa')

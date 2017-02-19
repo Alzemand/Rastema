@@ -388,12 +388,18 @@ class E_DINHEIRO(object):
         if value < 0:
             value = 0
         import locale
-
-        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-        value = locale.currency(value, grouping=True)
-        return value
-
-
+		
+	try:
+		# Works on Linux Serve
+		locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+		value = locale.currency(value, grouping=True)
+		return value
+	except:
+		# Works on Windows Server
+		locale.setlocale(locale.LC_ALL, 'ptb')
+		value = locale.currency(value, grouping=True)
+		return value
+		
 def to_money(value):
     if value < 0:
         value = 0
