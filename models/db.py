@@ -114,10 +114,13 @@ Equipamento = db.define_table('equipamento',
     Field('nome', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('descricao', 'string' , widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    SQLFORM.widgets.string.widget(field, value, _class='validate'), label = 'Descrição'),
+    Field('ax_cod', 'bigint' , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate'), label='Código AX'),
     Field('detalhe', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    format = "%(detalhe)s"
+    format = "%(detalhe)s",
+    primarykey=['ax_cod']
     )
 
 # Tabela de vinculo de fornecedor e equipamento (locação)
@@ -143,19 +146,17 @@ Fornecedor_Equipamento = db.define_table('fornecedor_equipamento',
 # Tabela de recebimento de almoxarifado
 
 Almoxarife = db.define_table('almoxarife',
-    Field('tag', 'bigint', widget = lambda field, value:
+    Field('tag', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('fornecedor_equipamento', 'reference fornecedor_equipamento',  widget = lambda field, value:
     SQLFORM.widgets.options.widget(field, value, _class='browser-default'), ondelete='SET NULL'),
-    Field('fornecedor', 'string', widget = lambda field, value:
+    Field('fornecedor', 'bigint', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    Field('equipamento', 'string', widget = lambda field, value:
+    Field('equipamento', 'bigint', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('fornecedor_nome', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('equipamento_nome', 'string', widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    Field('ax_cod', 'bigint', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('plataforma', 'string', widget = lambda field, value:
     SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
@@ -178,7 +179,17 @@ Almoxarife = db.define_table('almoxarife',
     Field('data_prevista_fim', 'date', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='date')),
     Field('status', 'string', widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='browser-default')),
-    primarykey=['tag'],
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
     format = "%(tag)s - %(equipamento_nome)s"
+    )
+
+# Atualização de valores
+
+Valor = db.define_table('valor',
+    Field('almoxarife', 'reference almoxarife',  widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='browser-default'), ondelete='SET NULL'),
+    Field('valor', 'decimal(7,2)', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('data_atualizacao', 'date', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='date')),
     )

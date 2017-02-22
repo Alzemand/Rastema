@@ -59,25 +59,29 @@ def _():
              URL('default', 'cadastro_pedido')),
              (T('Consulta'), True,
              URL('default', 'ver_locacao')),
-             (T('Receber'), True,
-             URL('default', 'almoxarife')),
-             (T('Devolução'), True,
-             URL('default', 'suporte')),
              ]),
-          (T('Relatórios'), False,  URL('default', 'suporte'))
-        #      (T('Convenio'), True,
-        #      URL('default', 'ver_aluno')),
-        #      (T('Vagas'), True,
-        #      URL('default', 'ver_professor')),
-        #     ]),
-        #   (T('Community'), False, None, [
-        #      (T('Groups'), False,
-        #       'http://www.web2py.com/examples/default/usergroups'),
-        #       (T('Twitter'), False, 'http://twitter.com/web2py'),
-        #       (T('Live Chat'), False,
-        #        'http://webchat.freenode.net/?channels=web2py'),
-        #       ]),
-        ]
+           (T('Almoxarifado'), False, '#', [
+              (T('Consulta'), True,
+              URL('default', 'ver_locacao')),
+              (T('Receber'), True,
+              URL('default', 'almoxarife')),
+              (T('Devolução'), True,
+              URL('default', 'suporte')),
+              (T('Valores'), True,
+              URL('default', 'ver_locacao')),
+              ]),
+           (T('Embarque'), False, '#', [
+              (T('Locação'), True,
+              URL('default', 'cadastro_pedido')),
+              (T('Consulta'), True,
+              URL('default', 'ver_locacao')),
+              (T('Receber'), True,
+              URL('default', 'almoxarife')),
+              (T('Devolução'), True,
+              URL('default', 'suporte')),
+              ]),
+
+          (T('Relatórios'), False,  URL('default', 'suporte'))]
 if DEVELOPMENT_MENU: _()
 
 if "auth" in locals(): auth.wikimenu()

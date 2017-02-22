@@ -245,17 +245,15 @@ class IS_TELEFONE(object):
         except:
             return (value, 'algum erro' + str(value))
 
-    # def formatter(self, value):
-    #     if value and len(value) == 11:
-    #         formatado = value[0:2] + '-' + value[2:6] + '-' + value[6:11]
-    #     else:
-    #         formatado = value
-    #     return formatado
+    def formatter(self, value):
+        value = str(value)
+        formatado = '(' +  value[0:2] + ')' + ' ' + value[2:7] + '-' + value[7:11]
+        return formatado
 
 
 def to_telefone(value):
     if value and len(value) == 10:
-        formatado = value[0:2] + '-' + value[2:6] + '-' + value[6:10]
+        formatado = '(' + value[0:2] + ')' + value[2:6] + '-' + value[6:10]
     else:
         formatado = value
     return formatado
@@ -364,6 +362,31 @@ class IS_MONEY(object):
                          ,error_message=self.error_message
                          ,dot=self.dot)(value)
 
+class IS_TAG(object):
+    def __init__(self, format=True, error_message='Digite a tag'):
+        self.format = format
+        self.error_message = error_message
+
+    def __call__(self, value):
+        tag = str(value)
+        if len(tag) < 1:
+            return (tag, 'Algo de errado com esse campo')
+
+        tag = tag.replace('-', '')
+        tag = tag.replace('.', '')
+        tag = tag.replace(',', '')
+        tag = tag.replace(';', '')
+        tag = tag.replace(':', '')
+        tag = tag.replace('>', '')
+        tag = tag.replace('<', '')
+        tag = tag.replace('/', '')
+        tag = tag.replace(' ', '')
+        tag = tag.upper()
+        try:
+            return (tag, None)
+        except:
+            return (tag, str(tag) + 'Não é uma tag valida' )
+
 
 class E_DINHEIRO(object):
     def __init__(self, format=True, error_message='Digite o valor!'):
@@ -388,7 +411,7 @@ class E_DINHEIRO(object):
         if value < 0:
             value = 0
         import locale
-		
+
 	try:
 		# Works on Linux Serve
 		locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -399,7 +422,7 @@ class E_DINHEIRO(object):
 		locale.setlocale(locale.LC_ALL, 'ptb')
 		value = locale.currency(value, grouping=True)
 		return value
-		
+
 def to_money(value):
     if value < 0:
         value = 0
