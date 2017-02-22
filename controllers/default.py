@@ -59,7 +59,6 @@ def suporte():
     return dict()
 
 # Página de testes
-
 def teste():
     if request.vars.visitor_name:
         session.visitor_name = request.vars.visitor_name
@@ -103,6 +102,7 @@ def cadastro_pedido():
     if form.process().accepted:
         quantidade = request.vars.quantidade
         quantidade = int(quantidade)
+
         while quantidade > 1:
             db.fornecedor_equipamento.insert(fornecedor=form.vars.fornecedor,
                                              equipamento=form.vars.equipamento,
@@ -132,17 +132,18 @@ def almoxarife():
         for row in db(db.fornecedor_equipamento.id == form.vars.fornecedor_equipamento).select():
             loca_select = row
         # Cadastrar valores na mesma tabela que recebe. O produto deixa de ser um pedido
-        db(db.almoxarife.tag == form.vars.tag).update(fornecedor=loca_select.fornecedor,
-                                                      equipamento = loca_select.equipamento,
-                                                      fornecedor_nome = loca_select.fornecedor_nome,
-                                                      equipamento_nome = loca_select.equipamento_nome,
-                                                      valor = loca_select.valor,
-                                                      data_pedido = loca_select.data_pedido
-                                                      )
+        db(db.almoxarife.id == form.vars.id).update(fornecedor=loca_select.fornecedor,
+                                                    equipamento = loca_select.equipamento,
+                                                    fornecedor_nome = loca_select.fornecedor_nome,
+                                                    equipamento_nome = loca_select.equipamento_nome,
+                                                    valor = loca_select.valor,
+                                                    data_pedido = loca_select.data_pedido,
+                                                    status = 'Almoxarifado'
+                                                    )
         # Remover o pedido, agora se torna um equipamento
         db(db.fornecedor_equipamento.id == form.vars.fornecedor_equipamento).delete()
         session.flash = 'teste'
-        redirect(URL('cadastro_pedido'))
+        redirect(URL('almoxarife'))
     elif form.errors:
         response.flash = 'Erros encontrados no formulário'
     else:
@@ -154,15 +155,14 @@ def almoxarife():
 # READ
 
 def ver_fornecedor():
-    grid = SQLFORM.grid(Fornecedor, fields =[db.fornecedor.cnpj,
-                                             db.fornecedor.nome,
-                                             db.fornecedor.telefone,
-                                             db.fornecedor.email],
-                                             maxtextlength=16,
-                                             exportclasses=dict(tsv_with_hidden_cols=False,
-                                                                csv=False,
-                                                                xml=False,
-                                                                json=False))
+    grid = SQLFORM.grid(Fornecedor,
+    fields =[db.fornecedor.cnpj,
+             db.fornecedor.nome,
+             db.fornecedor.telefone,
+             db.fornecedor.email],
+    maxtextlength=16,
+    exportclasses=dict(tsv_with_hidden_cols=False,
+                       csv=False, xml=False, json=False))
     return dict(grid=grid)
 
 def ver_equipamento():
@@ -172,22 +172,53 @@ def ver_equipamento():
         param = edit[2]
         url = 'editar_equipamento/' + param
         redirect(URL(url))
-    grid = SQLFORM.grid(Equipamento, fields=[db.equipamento.nome,
-                                             db.equipamento.descricao],
-                                             maxtextlength=16,
-                                             exportclasses=dict(tsv_with_hidden_cols=False,
-                                                                csv=False,
-                                                                xml=False,
-                                                                json=False))
+    grid = SQLFORM.grid(Equipamento,
+    fields=[db.equipamento.nome,
+            db.equipamento.descricao,
+            db.equipamento.ax_cod],
+
+            maxtextlength=16,
+
+    exportclasses=dict(tsv_with_hidden_cols=False,
+                       csv=False, xml=False, json=False))
     return dict(grid=grid)
 
 def ver_locacao():
     grid = SQLFORM.grid(Fornecedor_Equipamento,
-                        maxtextlength=16,
-                        exportclasses=dict(tsv_with_hidden_cols=False,
-                                           csv=False,
-                                           xml=False,
-                                           json=False))
+
+    fields=[db.fornecedor_equipamento.fornecedor,
+            db.fornecedor_equipamento.equipamento,
+            db.fornecedor_equipamento.valor,
+            db.fornecedor_equipamento.data_pedido,
+            db.fornecedor_equipamento.data_prevista_fim],
+
+    maxtextlength=25,
+
+    exportclasses=dict(tsv_with_hidden_cols=False,
+                       csv=False,xml=False,json=False))
+
+    return dict(grid=grid)
+
+def ver_almoxarife():
+    if 'view' in request.args:
+        db.almoxarife.fornecedor_equipamento.readable = False # or writable 
+        db.almoxarife.id.readable = False
+        db.almoxarife.equipamento.readable = False
+        db.almoxarife.fornecedor.readable = False
+
+    grid = SQLFORM.grid(Almoxarife,
+    fields=[db.almoxarife.equipamento_nome,
+            db.almoxarife.fornecedor_nome,
+            db.almoxarife.tag,
+            db.almoxarife.plataforma,
+            db.almoxarife.data_recebida,
+            db.almoxarife.status],
+    maxtextlength=25,
+    exportclasses=dict(tsv_with_hidden_cols=False,
+                       csv=False,xml=False,json=False))
+
+
+
     return dict(grid=grid)
 
 
