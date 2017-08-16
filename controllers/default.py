@@ -87,7 +87,7 @@ def cadastro_equipamento():
         nome = form.vars.nome
         detalhe = form.vars.descricao
         nome_detalhe = nome + ' ' + detalhe
-        db(db.equipamento.id == form.vars.id).update(detalhe=nome_detalhe)
+        db(db.equipamento.ax_cod == form.vars.ax_cod).update(detalhe=nome_detalhe)
         redirect(URL('cadastro_equipamento'))
     elif form.errors:
         response.flash = 'Erros encontrados no formulário'
@@ -112,7 +112,7 @@ def cadastro_pedido():
                                              )
             quantidade = quantidade - 1
         session.flash = 'Pedido Realizado'
-        for row in db(db.equipamento.id == form.vars.equipamento).select():
+        for row in db(db.equipamento.ax_cod == form.vars.equipamento).select():
             eqpt_select = row
         for row in db(db.fornecedor.cnpj == form.vars.fornecedor).select():
             forn_select = row
@@ -201,7 +201,7 @@ def ver_locacao():
 
 def ver_almoxarife():
     if 'view' in request.args:
-        db.almoxarife.fornecedor_equipamento.readable = False # or writable 
+        db.almoxarife.fornecedor_equipamento.readable = False # or writable
         db.almoxarife.id.readable = False
         db.almoxarife.equipamento.readable = False
         db.almoxarife.fornecedor.readable = False
