@@ -1,0 +1,10 @@
+Cadastro de Fornecedor;
+
+Nome fantasia;
+Razão social;
+cnpj;
+ie;
+endereço;
+telefone; e-mail;
+contato;
+observaçao;

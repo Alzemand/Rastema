@@ -241,7 +241,6 @@ class IS_TELEFONE(object):
                     return (value, 'o telefone tem mais de 11 dígitos')
             else:
                 return (value, 'O telefone deve estar no formato 00-0000-0000')
-                #return(cpf,'aquiok'+str(len(cpf)==11))
         except:
             return (value, 'algum erro' + str(value))
 
