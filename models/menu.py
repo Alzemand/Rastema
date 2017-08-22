@@ -44,7 +44,7 @@ def _():
 
           (T('Fornecedor'), False, '#', [
              (T('Cadastro'), True,
-             URL('default', 'cadastro_fornecedor')),
+             URL('default', 'fornecedor')),
              (T('Consulta'), True,
              URL('default', 'suporte')),
              ]),

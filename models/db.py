@@ -108,8 +108,7 @@ Fornecedor = db.define_table('fornecedor',
     SQLFORM.widgets.string.widget(field, value, _class='validate', _type='email')),
     Field('telefone', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    Field('servico', 'text', widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('servico', 'text'),
     primarykey=['cnpj'],
     format = "%(nome)s"
     )
