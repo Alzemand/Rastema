@@ -66,8 +66,9 @@ def teste():
     return dict()
 
 
-# CRIAR
+# FORNECEDOR
 
+@auth.requires_login()
 def fornecedor():
     form = SQLFORM(Fornecedor)
     if form.process().accepted:
@@ -78,6 +79,43 @@ def fornecedor():
     else:
         if not response.flash:
             response.flash = 'Preencha o formulário'
+    return dict(form=form)
+
+@auth.requires_login()
+def ver_fornecedor():
+    if 'edit' in request.args:
+        edit = request.args
+        response.flash = edit
+        parametro = edit[2]
+        url = 'editar_fornecedor/' + parametro
+        redirect(URL(url))
+    # if 'view' in request.args:
+    #     # db.carro.id.readable = False # or writable
+    #     fornecedor = db(Fornecedor.)
+    #     view = request.args
+    #     response.flash = view
+    #     parametro = view[2]
+    #     url = 'ver_fornecedor/' + parametro
+    #     redirect(URL(url))
+    grid = SQLFORM.grid(Fornecedor,
+    fields=[db.fornecedor.razao_social,
+            db.fornecedor.nome],
+            maxtextlength=30,
+    exportclasses=dict(tsv_with_hidden_cols=False,
+                       csv=False, xml=False, json=False))
+    return dict(grid=grid)
+
+def editar_fornecedor():
+    db.fornecedor.cnpj.readable = False
+    form = SQLFORM(Fornecedor, request.args(0, cast=int))
+    if form.process().accepted:
+        session.flash = 'Fornecedor atualizado: %s' % form.vars.nome
+        redirect(URL('ver_fornecedor'))
+    elif form.errors:
+        response.flash = 'Erros no formulário!'
+    else:
+        if not response.flash:
+            response.flash = 'Preencha o formulário!'
     return dict(form=form)
 
 # def cadastro_equipamento():

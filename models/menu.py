@@ -46,7 +46,7 @@ def _():
              (T('Cadastro'), True,
              URL('default', 'fornecedor')),
              (T('Consulta'), True,
-             URL('default', 'suporte')),
+             URL('default', 'ver_fornecedor')),
              ]),
         #   (T('Equipamentos'), False, '#', [
         #      (T('Cadastro Unitário'), True,

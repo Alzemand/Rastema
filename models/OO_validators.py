@@ -137,14 +137,11 @@ class IS_CNPJ(object):
 
     def __call__(self, value):
         try:
-            #return (value, 'cpf incorreto'+str(value))
-            #return (value, 'cpf incorreto'+str(cl))
             c = []
             for d in value:
                 if d.isdigit():
                     c.append(d)
             cl = str(''.join(c))
-            #return (value, 'cpf incorreto'+str(cl))
             if len(cl) == 14:
                 cnpj = cl
             else:

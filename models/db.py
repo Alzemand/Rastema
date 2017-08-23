@@ -94,7 +94,7 @@ db = DAL('mysql://root:linux@127.0.0.1/rastema', bigint_id=True)
 # Tabela Fornecedor
 
 Fornecedor = db.define_table('fornecedor',
-    Field('cnpj', 'bigint', widget = lambda field, value:
+    Field('cnpj', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('razao_social', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
