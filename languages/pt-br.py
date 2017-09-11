@@ -69,7 +69,7 @@
 'Clear RAM': 'Limpar memória RAM',
 'Click on the link %(link)s to reset your password': 'Click on the link %(link)s to reset your password',
 'Client IP': 'IP do cliente',
-'Close': 'Fechar',
+'Close': 'X',
 'Cnpj': 'Cnpj',
 'Cod Tip': 'Cod Tip',
 'Comma-separated export including columns not shown; fields from other tables are exported as raw values for faster export': 'Comma-separated export including columns not shown; fields from other tables are exported as raw values for faster export',

@@ -230,9 +230,9 @@ class IS_TELEFONE(object):
                         c.append(d)
                 cl = str(''.join(c))
                 #return (value, 'cpf incorreto'+str(cl))
-                if len(cl) == 11:
+                if len(cl) == 11 or len(cl) == 10:
                     return (str(cl), None)
-                elif len(cl) < 11:
+                elif len(cl) < 10:
                     return (value, 'telefone incompleto')
                 else:
                     return (value, 'o telefone tem mais de 11 dígitos')
@@ -243,13 +243,16 @@ class IS_TELEFONE(object):
 
     def formatter(self, value):
         value = str(value)
-        formatado = '(' +  value[0:2] + ')' + ' ' + value[2:7] + '-' + value[7:11]
+        if len(value) == 11:
+            formatado = '(' +  value[0:2] + ')' + ' ' + value[2:7] + '-' + value[7:11]
+        else:
+            formatado = '(' +  value[0:2] + ')' + ' ' + value[2:6] + '-' + value[6:10]
         return formatado
 
 
 def to_telefone(value):
-    if value and len(value) == 10:
-        formatado = '(' + value[0:2] + ')' + value[2:6] + '-' + value[6:10]
+    if value and len(value) == 11:
+        formatado = '(' + value[0:2] + ')' + value[2:7] + '-' + value[7:17]
     else:
         formatado = value
     return formatado

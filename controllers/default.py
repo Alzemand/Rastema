@@ -50,7 +50,7 @@ def call():
 def index():
     return dict()
 
-
+@auth.requires_login()
 def level():
     return dict()
 
@@ -97,9 +97,11 @@ def ver_fornecedor():
     #     parametro = view[2]
     #     url = 'ver_fornecedor/' + parametro
     #     redirect(URL(url))
-    grid = SQLFORM.grid(Fornecedor,
-    fields=[db.fornecedor.razao_social,
-            db.fornecedor.nome],
+    grid = SQLFORM.grid(Fornecedor, create=False, buttons_placement = 'right',
+    fields=[db.fornecedor.cnpj,
+            db.fornecedor.nome,
+            db.fornecedor.telefone,
+            db.fornecedor.email],
             maxtextlength=30,
     exportclasses=dict(tsv_with_hidden_cols=False,
                        csv=False, xml=False, json=False))
@@ -107,7 +109,7 @@ def ver_fornecedor():
 
 def editar_fornecedor():
     db.fornecedor.cnpj.readable = False
-    form = SQLFORM(Fornecedor, request.args(0, cast=int))
+    form = SQLFORM(Fornecedor, request.args(0, cast=str))
     if form.process().accepted:
         session.flash = 'Fornecedor atualizado: %s' % form.vars.nome
         redirect(URL('ver_fornecedor'))
