@@ -95,7 +95,7 @@ db = DAL('mysql://root:linux@127.0.0.1/rastema', bigint_id=True)
 
 Fornecedor = db.define_table('fornecedor',
     Field('cnpj', 'string', widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    SQLFORM.widgets.string.widget(field, value, _class='validate'), label='CNPJ'),
     Field('razao_social', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('nome', 'string', widget = lambda field, value:
@@ -105,7 +105,7 @@ Fornecedor = db.define_table('fornecedor',
     Field('inscricao_estadual', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('email', 'string', widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='validate', _type='email')),
+    SQLFORM.widgets.string.widget(field, value, _class='validate', _type='email'), label="E-Mail"),
     Field('telefone', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('servico', 'text'),
@@ -114,19 +114,19 @@ Fornecedor = db.define_table('fornecedor',
     )
 
 # # Tabela de Equipamento
-#
-# Equipamento = db.define_table('equipamento',
-#     Field('nome', 'string' , widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('descricao', 'string' , widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate'), label = 'Descrição'),
-#     Field('ax_cod', 'bigint' , widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate'), label='Código AX'),
-#     Field('detalhe', 'string' , widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     format = "%(detalhe)s",
-#     primarykey=['ax_cod']
-#     )
+
+Equipamento = db.define_table('equipamento',
+    Field('nome', 'string' , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('descricao', 'string' , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate'), label = 'Descrição'),
+    Field('ax_cod', 'bigint' , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate'), label='Código AX'),
+    Field('tag', 'string' , widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    format = "%(detalhe)s",
+    primarykey=['tag']
+    )
 #
 # # Tabela de vinculo de fornecedor e equipamento (locação)
 #

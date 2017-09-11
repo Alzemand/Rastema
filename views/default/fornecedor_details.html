@@ -4,12 +4,13 @@
 <body class="grey lighten-3">
 <h5 class="header col s12 light">Consultar Fornecedores</h5>
 <br><br><br>
-<div class="row">
-
+<div class="container">
+	<div class="container">
 		<div class="card-panel hoverable"><br>
 
-{{=grid}}
-<br>
-  </div>
+	{{for x in fornecedor_details:}}
+		{{=x}}
+	{{pass}}
 </div>
-<br><br><br>
+</div>
+</body>

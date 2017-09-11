@@ -89,14 +89,13 @@ def ver_fornecedor():
         parametro = edit[2]
         url = 'editar_fornecedor/' + parametro
         redirect(URL(url))
-    # if 'view' in request.args:
-    #     # db.carro.id.readable = False # or writable
-    #     fornecedor = db(Fornecedor.)
-    #     view = request.args
-    #     response.flash = view
-    #     parametro = view[2]
-    #     url = 'ver_fornecedor/' + parametro
-    #     redirect(URL(url))
+    if 'view' in request.args:
+        #db.fornecedor.id.readable = False # or writable
+        view = request.args
+        response.flash = view
+        parametro = view[2]
+        url = 'fornecedor_details/' + str(parametro)
+        redirect(URL(url))
     grid = SQLFORM.grid(Fornecedor, create=False, buttons_placement = 'right',
     fields=[db.fornecedor.cnpj,
             db.fornecedor.nome,
@@ -107,6 +106,7 @@ def ver_fornecedor():
                        csv=False, xml=False, json=False))
     return dict(grid=grid)
 
+# Editar fornecedores
 def editar_fornecedor():
     db.fornecedor.cnpj.readable = False
     form = SQLFORM(Fornecedor, request.args(0, cast=str))
@@ -119,6 +119,44 @@ def editar_fornecedor():
         if not response.flash:
             response.flash = 'Preencha o formulário!'
     return dict(form=form)
+
+# Ver detalhes dos fornecedores
+def fornecedor_details():
+    fornecedor_details = db(Fornecedor.cnpj == request.vars.fornecedor).select()
+    return dict(fornecedor_details=fornecedor_details)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # def cadastro_equipamento():
 #     form = SQLFORM(Equipamento)
