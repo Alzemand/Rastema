@@ -162,10 +162,8 @@ class IS_CNPJ(object):
                         f = 0
                     novoCnpj.append(f)
                     prod.insert(0, 6)
-                    #return(str(novoCnpj),'aquiok')
                 """ Se o número gerado coincidir com o número original, é válido """
                 if novoCnpj == inteiros:
-                    #cnpj = ''.join(novoCnpj)
 
                     return (str(cnpj), None)
 
@@ -177,9 +175,10 @@ class IS_CNPJ(object):
         except:
             return (value, 'algum erro' + str(value))
 
-    # def formatter(self, value):
-    #     formatado = value[0:2] + '.' + value[2:5] + '.' + value[5:8] + '/ ' + value[8:12] + '-' + value[12:14]
-    #     return formatado
+
+
+def to_cnpj(value):
+    return "%s.%s.%s/%s-%s" % ( value[0:2], value[2:5], value[5:8], value[8:12], value[12:14] )
 
 
 class IS_CEP(object):
@@ -252,10 +251,11 @@ class IS_TELEFONE(object):
 
 def to_telefone(value):
     if value and len(value) == 11:
-        formatado = '(' + value[0:2] + ')' + value[2:7] + '-' + value[7:17]
+        formatado = '(' +  value[0:2] + ')' + ' ' + value[2:7] + '-' + value[7:11]
     else:
-        formatado = value
+        formatado = '(' +  value[0:2] + ')' + ' ' + value[2:6] + '-' + value[6:10]
     return formatado
+
 
 
 class IS_CPF(object):

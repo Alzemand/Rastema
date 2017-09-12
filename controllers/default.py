@@ -60,9 +60,8 @@ def suporte():
 
 # Página de testes
 def teste():
-    if request.vars.visitor_name:
-        session.visitor_name = request.vars.visitor_name
-        redirect(URL('suporte'))
+    if request.vars.filme:
+        session.flash = request.vars.teste
     return dict()
 
 
@@ -99,6 +98,7 @@ def ver_fornecedor():
     grid = SQLFORM.grid(Fornecedor, create=False, buttons_placement = 'right',
     fields=[db.fornecedor.cnpj,
             db.fornecedor.nome,
+            db.fornecedor.inscricao_estadual,
             db.fornecedor.telefone,
             db.fornecedor.email],
             maxtextlength=30,
@@ -108,7 +108,7 @@ def ver_fornecedor():
 
 @auth.requires_login()
 def editar_fornecedor():
-    db.fornecedor.cnpj.readable = False
+    # db.fornecedor.cnpj.writable = False
     form = SQLFORM(Fornecedor, request.args(0, cast=str))
     if form.process().accepted:
         session.flash = 'Fornecedor atualizado: %s' % form.vars.nome
@@ -127,12 +127,24 @@ def fornecedor_details():
     '''
     Aqui o request.arg (0) pega o parametro URL e executa o select no banco de
     dados "http://0.0.0.0/Rastema/default/fornecedor_details/09477210000140"
-    esse dados é dado pela função ver_fornecedor() que tem um 'recurso técnico'
     '''
-
     fornecedor_details = db(Fornecedor.cnpj == request.args(0)).select()
     return dict(fornecedor_details=fornecedor_details)
 
+# EQUIPAMENTOS
+
+def cadastro_equipamento():
+    form = SQLFORM(Equipamento)
+    if form.process().accepted:
+        session.flash = 'Novo Equipamento: %s' % form.vars.nome
+        db(db.equipamento.ax_cod == form.vars.ax_cod).update(detalhe=nome_detalhe)
+        redirect(URL('cadastro_equipamento'))
+    elif form.errors:
+        response.flash = 'Erros encontrados no formulário'
+    else:
+        if not response.flash:
+            response.flash = ''
+    return dict(form=form)
 
 
 
@@ -161,26 +173,6 @@ def fornecedor_details():
 
 
 
-
-
-
-
-
-# def cadastro_equipamento():
-#     form = SQLFORM(Equipamento)
-#     if form.process().accepted:
-#         session.flash = 'Novo Equipamento: %s' % form.vars.nome
-#         nome = form.vars.nome
-#         detalhe = form.vars.descricao
-#         nome_detalhe = nome + ' ' + detalhe
-#         db(db.equipamento.ax_cod == form.vars.ax_cod).update(detalhe=nome_detalhe)
-#         redirect(URL('cadastro_equipamento'))
-#     elif form.errors:
-#         response.flash = 'Erros encontrados no formulário'
-#     else:
-#         if not response.flash:
-#             response.flash = ''
-#     return dict(form=form)
 #
 # def cadastro_pedido():
 #     form = SQLFORM(Fornecedor_Equipamento)

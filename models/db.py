@@ -103,7 +103,7 @@ Fornecedor = db.define_table('fornecedor',
     Field('endereco', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('inscricao_estadual', 'string', widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    SQLFORM.widgets.string.widget(field, value, _class='validate'), label="Inscrição Estatual"),
     Field('email', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate', _type='email'), label="E-Mail"),
     Field('telefone', 'string', widget = lambda field, value:

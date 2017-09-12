@@ -211,6 +211,7 @@
 'Informe a Razão Social': 'Informe a Razão Social',
 'Informe o nome do Fornecedor': 'Informe o nome do Fornecedor',
 'Inscricao Estadual': 'Inscricao Estadual',
+'Inscrição Estatual': 'Inscrição Estatual',
 'insert new': 'inserir novo',
 'insert new %s': 'inserir novo %s',
 'Instituição e convenio': 'Instituição e convenio',
