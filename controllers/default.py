@@ -90,7 +90,7 @@ def ver_fornecedor():
         url = 'editar_fornecedor/' + parametro
         redirect(URL(url))
     if 'view' in request.args:
-        #db.fornecedor.id.readable = False # or writable
+        # db.fornecedor.id.readable = False # or writable
         view = request.args
         response.flash = view
         parametro = view[2]
@@ -106,7 +106,7 @@ def ver_fornecedor():
                        csv=False, xml=False, json=False))
     return dict(grid=grid)
 
-# Editar fornecedores
+@auth.requires_login()
 def editar_fornecedor():
     db.fornecedor.cnpj.readable = False
     form = SQLFORM(Fornecedor, request.args(0, cast=str))
@@ -120,9 +120,17 @@ def editar_fornecedor():
             response.flash = 'Preencha o formulário!'
     return dict(form=form)
 
+
 # Ver detalhes dos fornecedores
+
 def fornecedor_details():
-    fornecedor_details = db(Fornecedor.cnpj == request.vars.fornecedor).select()
+    '''
+    Aqui o request.arg (0) pega o parametro URL e executa o select no banco de
+    dados "http://0.0.0.0/Rastema/default/fornecedor_details/09477210000140"
+    esse dados é dado pela função ver_fornecedor() que tem um 'recurso técnico'
+    '''
+
+    fornecedor_details = db(Fornecedor.cnpj == request.args(0)).select()
     return dict(fornecedor_details=fornecedor_details)
 
 
