@@ -1,17 +1,10 @@
 {{extend 'layout.html'}}
 
-<body>
-<br>
-  <nav>
-    <div class="nav-wrapper">
-      <form method="get">
-        <div class="input-field">
-          <input name="teste" id="search" type="search">
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
-    </div>
-  </nav>
 
-</body>
+{{a = db.executesql('SELECT nome FROM FORNECEDOR;')}}
+
+{{#db.equipamento.drop()}}
+{{#db.commit()}}
+<br>
+
+<br>

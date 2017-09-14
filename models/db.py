@@ -113,11 +113,9 @@ Fornecedor = db.define_table('fornecedor',
     format = "%(nome)s"
     )
 
-# # Tabela de Equipamento
+# Tabela de Equipamento
 
 Equipamento = db.define_table('equipamento',
-    Field('nome', 'string' , widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('descricao', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate'), label = 'Descrição'),
     Field('ax_cod', 'bigint' , widget = lambda field, value:

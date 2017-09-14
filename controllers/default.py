@@ -95,7 +95,7 @@ def ver_fornecedor():
         parametro = view[2]
         url = 'fornecedor_details/' + str(parametro)
         redirect(URL(url))
-    grid = SQLFORM.grid(Fornecedor, create=False, buttons_placement = 'right',
+    grid = SQLFORM.grid(Fornecedor, create=False,
     fields=[db.fornecedor.cnpj,
             db.fornecedor.nome,
             db.fornecedor.inscricao_estadual,
@@ -108,7 +108,6 @@ def ver_fornecedor():
 
 @auth.requires_login()
 def editar_fornecedor():
-    # db.fornecedor.cnpj.writable = False
     form = SQLFORM(Fornecedor, request.args(0, cast=str))
     if form.process().accepted:
         session.flash = 'Fornecedor atualizado: %s' % form.vars.nome
@@ -117,7 +116,7 @@ def editar_fornecedor():
         response.flash = 'Erros no formulário!'
     else:
         if not response.flash:
-            response.flash = 'Preencha o formulário!'
+            response.flash = 'Atualização de dados'
     return dict(form=form)
 
 
@@ -136,8 +135,7 @@ def fornecedor_details():
 def cadastro_equipamento():
     form = SQLFORM(Equipamento)
     if form.process().accepted:
-        session.flash = 'Novo Equipamento: %s' % form.vars.nome
-        db(db.equipamento.ax_cod == form.vars.ax_cod).update(detalhe=nome_detalhe)
+        session.flash = 'Novo Equipamento: %s' % form.vars.descricao
         redirect(URL('cadastro_equipamento'))
     elif form.errors:
         response.flash = 'Erros encontrados no formulário'
@@ -146,7 +144,29 @@ def cadastro_equipamento():
             response.flash = ''
     return dict(form=form)
 
-
+def ver_equipamento():
+    if 'edit' in request.args:
+        edit = request.args
+        response.flash = edit
+        parametro = edit[2]
+        url = 'editar_equipamento/' + parametro
+        redirect(URL(url))
+    if 'view' in request.args:
+        view = request.args
+        response.flash = view
+        parametro = view[2]
+        url = 'equipamento_details/' + str(parametro)
+        redirect(URL(url))
+    grid = SQLFORM.grid(Equipamento, create=False,
+    fields=[db.equipamento.descricao,
+            db.equipamento.tag,
+            db.equipamento.,
+            db.fornecedor.telefone,
+            db.fornecedor.email],
+            maxtextlength=30,
+    exportclasses=dict(tsv_with_hidden_cols=False,
+                       csv=False, xml=False, json=False))
+    return dict(grid=grid)
 
 
 
