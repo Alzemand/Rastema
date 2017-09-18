@@ -184,12 +184,20 @@ def equipamento_details():
     return dict(equipamento_details=equipamento_details)
 
 
+# LOCAÇÃO DE EQUIPAMENTOS
 
 
-
-
-
-
+def cadastrar_pedido():
+    form = SQLFORM(Pedido)
+    if form.process().accepted:
+        session.flash = ''
+        redirect(URL(''))
+    elif form.errors:
+        response.flash = ''
+    else:
+        if not response.flash:
+            response.flash = ''
+    return dict(form=form)
 
 
 

@@ -9,6 +9,14 @@ Fornecedor.cnpj.requires = [IS_CNPJ(), IS_NOT_EMPTY(), IS_NOT_IN_DB(db, 'fornece
 Fornecedor.telefone.requires = IS_TELEFONE()
 Fornecedor.email.requires = IS_EMAIL()
 
+
+# Validador Equipamento
+
+Equipamento.tag.requires = [IS_TAG(), IS_NOT_IN_DB(db, 'equipamento.tag')]
+
+
+
+
 # # Validador de Pedido
 #
 # Fornecedor_Equipamento.valor.requires = E_DINHEIRO()
