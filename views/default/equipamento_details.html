@@ -6,7 +6,7 @@
 {{pass}}
 
 <body class="grey lighten-3">
-<h5 class="header col s12 light">Detalhes de {{=empresa.nome}}</h5>
+<h5 class="header col s12 light">Detalhes de {{=equipamento.descricao}}</h5>
 <br><br><br><br>
 
 <div class="container">
@@ -14,65 +14,33 @@
 		<div class="card-panel hoverable"><br>
 		<div class="row">
 			<div class="container">
-				<div style="text-align: center;"><img class="responsive-img" src="/Rastema/static/images/empresa.svg" height="100px" width="100px"><br><br>
+				<div style="text-align: center;"><img class="responsive-img" src="/Rastema/static/images/ferramenta.svg" height="100px" width="100px"><br><br>
 		  </div>
 
 			<div class="row">
 				<div class=" col s12">
-				<label>Razão social</label><br>
-					{{=empresa.razao_social}}
+				<label>Descrição</label><br>
+					{{=equipamento.descricao}}
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col s12">
-				<label>Nome fantasia</label><br>
-				{{=empresa.nome}}
+				<label>TAG</label><br>
+				{{=equipamento.tag}}
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col s12">
-				<label>Inscrição estadual</label><br>
-				{{=empresa.inscricao_estadual}}
+				<label>Código AX</label><br>
+				{{=equipamento.ax_cod}}
 				</div>
 			</div>
 
-			<div class="row">
-				<div class=" col s6">
-				<label>CNPJ</label><br>
-				{{=to_cnpj(empresa.cnpj)}}
-				</div>
-				<div class=" col s6">
-				<label>Telefone</label><br>
-				{{=to_telefone(empresa.telefone)}}
-				</div>
-			</div>
-
-
-			<div class="row">
-				<div class=" col s12">
-				<label>Endereço</label><br>
-				{{=empresa.endereco}}
-				</div>
-			</div>
-
-		<div class="row">
-			<div class=" col s12">
-			  <label>E-mail</label><br>
-				{{=empresa.email}}
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col s12">
-				<label>Serviço prestado</label><br>
-				{{=empresa.servico}}
-			</div>
-		</div>
 		<br><br>
 		<div class="left">
-			<a href="/Rastema/default/ver_fornecedor" class="waves-effect waves-light btn">Voltar
+			<a href="/Rastema/default/ver_equipamento" class="waves-effect waves-light btn">Voltar
 			</a>
 		</div>
 	</div>

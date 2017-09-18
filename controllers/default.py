@@ -155,21 +155,33 @@ def ver_equipamento():
         view = request.args
         response.flash = view
         parametro = view[2]
-        url = 'equipamento_details/' + str(parametro)
+        url = 'equipamento_details/%s' % (parametro)
         redirect(URL(url))
     grid = SQLFORM.grid(Equipamento, create=False,
     fields=[db.equipamento.descricao,
             db.equipamento.tag,
-            db.equipamento.,
-            db.fornecedor.telefone,
-            db.fornecedor.email],
+            db.equipamento.ax_cod],
             maxtextlength=30,
     exportclasses=dict(tsv_with_hidden_cols=False,
                        csv=False, xml=False, json=False))
     return dict(grid=grid)
 
+def editar_equipamento():
+    db.equipamento.id.readable = False
+    form = SQLFORM(Equipamento, request.args(0, cast=str))
+    if form.process().accepted:
+        session.flash = 'Equipamento atualizado: %s' % form.vars.descricao
+        redirect(URL('ver_equipamento'))
+    elif form.errors:
+        response.flash = 'Erros no formulário!'
+    else:
+        if not response.flash:
+            response.flash = 'Atualização de dados'
+    return dict(form=form)
 
-
+def equipamento_details():
+    equipamento_details = db(Equipamento.id == request.args(0)).select()
+    return dict(equipamento_details=equipamento_details)
 
 
 

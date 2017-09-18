@@ -362,7 +362,7 @@ class IS_MONEY(object):
                          ,dot=self.dot)(value)
 
 class IS_TAG(object):
-    def __init__(self, format=True, error_message='Digite a tag'):
+    def __init__(self, format=True, error_message='Digite a tag do equipamento'):
         self.format = format
         self.error_message = error_message
 
@@ -380,6 +380,7 @@ class IS_TAG(object):
         tag = tag.replace('<', '')
         tag = tag.replace('/', '')
         tag = tag.replace(' ', '')
+        tag = tag.replace('ç', 'c')
         tag = tag.upper()
         try:
             return (tag, None)
@@ -490,25 +491,6 @@ def valor(value):
     else:
         reais = 0
     return '%s,%s' % (reais, centavos)
-
-
-class VALOR_PAGO(object):
-    def __init__(self, format=True, error_message=''):
-        #self.format = format
-        self.error_message = error_message
-
-    def __call__(self, value):
-        return (0, None)
-
-    def formatter(self, value):
-        #return value
-        soma = db.pagamento_realizado.valor_total.sum()
-        pago = db(db.pagamento_realizado.convenio_id == self.convenio.id
-        ).select(soma).first()[soma]
-        if not pago:
-            pago = 0
-        return to_money(pago)
-
 
 #db.convenio.virtualfields.append(ConveniosVirtualFields())
 

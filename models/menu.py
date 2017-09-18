@@ -52,7 +52,7 @@ def _():
              (T('Cadastro'), True,
              URL('default', 'cadastro_equipamento')),
              (T('Consulta'), True,
-             URL('default', 'suporte')),
+             URL('default', 'ver_equipamento')),
              ]),
         #   (T('Pedidos'), False, '#', [
         #      (T('Locação'), True,

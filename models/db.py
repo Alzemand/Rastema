@@ -123,7 +123,7 @@ Equipamento = db.define_table('equipamento',
     Field('tag', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     format = "%(detalhe)s",
-    primarykey=['tag']
+    # primarykey=['tag']
     )
 #
 # # Tabela de vinculo de fornecedor e equipamento (locação)
