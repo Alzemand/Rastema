@@ -1,11 +1,27 @@
 {{extend 'layout.html'}}
 
 
-{{a = db.executesql('SELECT nome FROM FORNECEDOR;')}}
+
 
 {{#db.equipamento.drop()}}
 {{#db.commit()}}
 
-<br>
+<body>
 
-<br>
+<div class="input-field col s12">
+    <input type="text" class="datepicker">
+</div>
+</body>
+
+<script>
+$('.datepicker').pickadate({
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 15, // Creates a dropdown of 15 years to control year,
+  today: 'Today',
+  clear: 'Clear',
+  close: 'Ok',
+  closeOnSelect: false // Close upon selecting a date,
+});
+
+
+</script>

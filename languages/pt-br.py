@@ -209,6 +209,7 @@
 'in': 'in',
 'Index': 'Início',
 'Informe a Razão Social': 'Informe a Razão Social',
+'Informe o nome do equipamento': 'Informe o nome do equipamento',
 'Informe o nome do Fornecedor': 'Informe o nome do Fornecedor',
 'Inscricao Estadual': 'Inscricao Estadual',
 'Inscrição Estatual': 'Inscrição Estatual',

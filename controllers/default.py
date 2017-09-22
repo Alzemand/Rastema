@@ -46,6 +46,32 @@ def call():
     """
     return service()
 
+def search(fields, url):
+    if 'edit' in request.args:
+        edit = request.args
+        response.flash = edit
+        parametro = edit[2]
+        url = 'editar_fornecedor/' + parametro
+        redirect(URL(url))
+
+    form = FORM('',
+                INPUT(_name='first_name', _id='first_name',
+                      value=sv.first_name, _type='text',
+                      _placeholder='First Name'),
+                INPUT(_name='last_name', _id='last_name',
+                      value=sv.last_name, _type='text',
+                      _placeholder='Last Name'),
+                SPAN(INPUT(_name='search_text', _id='search_text',
+                           value=sv.search_text, _style="width: 200px;",
+                           _type='text',_placeholder='Search'),
+                     BUTTON('GO', _class='btn go', style='padding-bottom: 50px;',
+                            _type='submit'),
+                     _class='input-append'),
+                _id='defaultSearch', _class='row-fluid form-inline',
+                _action=url, _method='get')
+
+    return form
+
 
 def index():
     return dict()
@@ -130,6 +156,9 @@ def fornecedor_details():
     fornecedor_details = db(Fornecedor.cnpj == request.args(0)).select()
     return dict(fornecedor_details=fornecedor_details)
 
+
+
+
 # EQUIPAMENTOS
 
 def cadastro_equipamento():
@@ -157,7 +186,7 @@ def ver_equipamento():
         parametro = view[2]
         url = 'equipamento_details/%s' % (parametro)
         redirect(URL(url))
-    grid = SQLFORM.grid(Equipamento, create=False,
+    grid = SQLFORM.grid(Equipamento, create=False, search_widget = None ,
     fields=[db.equipamento.descricao,
             db.equipamento.tag,
             db.equipamento.ax_cod],
@@ -184,8 +213,9 @@ def equipamento_details():
     return dict(equipamento_details=equipamento_details)
 
 
-# LOCAÇÃO DE EQUIPAMENTOS
 
+
+# LOCAÇÃO DE EQUIPAMENTOS
 
 def cadastrar_pedido():
     form = SQLFORM(Pedido)
@@ -198,6 +228,7 @@ def cadastrar_pedido():
         if not response.flash:
             response.flash = ''
     return dict(form=form)
+
 
 
 

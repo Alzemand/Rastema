@@ -122,7 +122,7 @@ Equipamento = db.define_table('equipamento',
     SQLFORM.widgets.string.widget(field, value, _class='validate'), label='Código AX'),
     Field('tag', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    format = "%(descricao)s",
+    format = "%(descricao)s  | TAG: %(tag)s",
     # primarykey=['tag']
     )
 
@@ -132,17 +132,13 @@ Pedido = db.define_table('pedido',
     Field('fornecedor', 'reference fornecedor',  widget = lambda field, value:
     SQLFORM.widgets.options.widget(field, value, _class='input-field'), ondelete='SET NULL'),
     Field('equipamento', 'reference equipamento',  widget = lambda field, value:
-    SQLFORM.widgets.options.widget(field, value, _class='browser-default'), ondelete='SET NULL'),
-    # Field('fornecedor_nome', 'string', widget = lambda field, value:
-    # SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    # Field('equipamento_nome', 'string', widget = lambda field, value:
-    # SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    # Field('valor', 'decimal(7,2)', widget = lambda field, value:
-    # SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    # Field('data_pedido', 'date', widget = lambda field, value:
-    # SQLFORM.widgets.string.widget(field, value, _class='date')),
-    # Field('data_prevista_fim', 'date', widget = lambda field, value:
-    # SQLFORM.widgets.string.widget(field, value, _class='date')),
+    SQLFORM.widgets.options.widget(field, value, _class='input-field'), ondelete='SET NULL'),
+    Field('valor', 'decimal(7,2)', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('data_pedido', 'date', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='datepicker')),
+    Field('data_prevista_fim', 'date', widget = lambda field, value:
+    SQLFORM.widgets.string.widget(field, value, _class='datepicker')),
     # format = "%(equipamento_nome)s - %(fornecedor_nome)s"
     )
 #

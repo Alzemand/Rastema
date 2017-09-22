@@ -1,12 +1,13 @@
 {{extend 'layout.html'}}
-{{# -*- coding:utf-8 -*- }}
+
+{{# -*- coding: utf-8 -*-}}
 
 {{for empresa in fornecedor_details:}}
 	{{empresa}}
 {{pass}}
 
 <body class="grey lighten-3">
-<h5 class="header col s12 light">Detalhes de {{=empresa.nome}}</h5>
+<h5 class="header col s12 light">Detalhes de {{=empresa.nome.title()}}</h5>
 <br><br><br><br>
 
 <div class="container">
