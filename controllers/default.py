@@ -186,7 +186,7 @@ def ver_equipamento():
         parametro = view[2]
         url = 'equipamento_details/%s' % (parametro)
         redirect(URL(url))
-    grid = SQLFORM.grid(Equipamento, create=False, search_widget = None ,
+    grid = SQLFORM.grid(Equipamento, create=False, advanced_search = False,
     fields=[db.equipamento.descricao,
             db.equipamento.tag,
             db.equipamento.ax_cod],
