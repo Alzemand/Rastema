@@ -94,11 +94,11 @@ def teste():
 # FORNECEDOR
 
 @auth.requires_login()
-def fornecedor():
+def cadastro_fornecedor():
     form = SQLFORM(Fornecedor)
     if form.process().accepted:
         session.flash = 'Novo Fornecedor: %s' % form.vars.nome
-        redirect(URL('fornecedor'))
+        redirect(URL('cadastro_fornecedor'))
     elif form.errors:
         response.flash = 'Erros encontrados no formulário'
     else:
@@ -121,7 +121,7 @@ def ver_fornecedor():
         parametro = view[2]
         url = 'fornecedor_details/' + str(parametro)
         redirect(URL(url))
-    grid = SQLFORM.grid(Fornecedor, create=False,
+    grid = SQLFORM.grid(Fornecedor, create=False, advanced_search = False,
     fields=[db.fornecedor.cnpj,
             db.fornecedor.nome,
             db.fornecedor.inscricao_estadual,

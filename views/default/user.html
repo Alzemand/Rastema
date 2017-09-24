@@ -1,25 +1,35 @@
-{{extend 'layout.html'}}
+{{extend 'layout-no-menu.html'}}
+
+
+<body class="grey lighten-3 class="parallax"><img src="background1.jpg" alt="Unsplashed background img 1">">
 
 
 <div class="container">
 <h2>
-{{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
+{{=T('Ent') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
 </h2>
 
     <div class="row">
-        <div id="web2py_user_form" class="col-lg-6">
+      <div class="col s12 l8 offset-l2 m8 offset-m2">
+        <div class="card-panel hoverable"><br>
+          <i class="large center material-icons">account_circle</i>
+          <br><br>
+        <div id="web2py_user_form" class="row">
         {{
         if request.args(0)=='login':
             if not 'register' in auth.settings.actions_disabled:
                 form.add_button(T('Sign Up'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-default')
             pass
             if not 'request_reset_password' in auth.settings.actions_disabled:
-                form.add_button(T('Lost Password'),URL(args='request_reset_password'),_class='btn btn-default')
+                form.add_button(T('reset de senha'),URL(args='request_reset_password'),_class='btn btn-default')
             pass
         pass
         =form
         }}
-        </div>
+        <br><br>
+      </div>
+    </div>
+  </div>
     </div>
 </div>
 
@@ -34,3 +44,5 @@
 {{pass}}
 </script>
 {{end page_js}}
+</body>
+<br><br><br><br><br><br>
