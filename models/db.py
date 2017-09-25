@@ -68,7 +68,7 @@ mail.settings.login = myconf.take('smtp.login')
 
 ## configure auth policy
 auth.settings.registration_requires_verification = False
-auth.settings.registration_requires_approval = False
+auth.settings.registration_requires_approval = True
 auth.settings.reset_password_requires_verification = True
 
 #########################################################################
@@ -90,6 +90,7 @@ auth.settings.reset_password_requires_verification = True
 
 # Conexão MYSQL
 db = DAL('mysql://root:linux@127.0.0.1/rastema', bigint_id=True)
+
 
 # Tabela Fornecedor
 

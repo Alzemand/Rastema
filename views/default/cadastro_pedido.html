@@ -3,54 +3,69 @@
 {{=form.custom.begin}}
 
 <body class="grey lighten-3">
-<h5 class="header col s12 light">Cadastrar Fornecedor</h5>
+<h5 class="header col s12 light">Cadastrar Pedido</h5>
 <br><br><br><br>
 <div class="container">
-	<div class="container">
+
 		<div class="card-panel hoverable"><br>
 		<div class="row">
 			<div class="container">
-				<div style="text-align: center;"><img class="responsive-img" src="/Rastema/static/images/locar.svg" height="100px" width="100px"><br><br>
+				<div style="text-align: center;"><i class="large material-icons" style="color:#2196f3;">add_shopping_cart</i><br><br>
 		  </div>
 
 			<div class="row">
-				<div class="col s12">
-					<label>Fornecedor</label>
+				<div class="input-field col s12">
 					{{=form.custom.widget.fornecedor}}
+				<label>Fornecedor</label>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s12">
-					<label>Equipamento</label>
+				<div class="input-field col s12">
 					{{=form.custom.widget.equipamento}}
+				<label>Equipamento</label>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="input-field col s6">
-					<input name="quantidade" type="number" class="validate">
-				<label>Quantidade</label>
-				</div>
-				<div class="input-field col s6">
+				<div class="input-field col s12">
 					{{=form.custom.widget.valor}}
-				<label>Valor locação (DIA)</label>
+				<label>Valor dia</label>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s6">
-					<label>Data do pedido</label>
-					{{=form.custom.widget.data_pedido}}
-
-				</div>
-				<div class="col s6">
-					<label>Previsão de Devolução</label>
+				<div class="input-field col s6">
 					{{=form.custom.widget.data_prevista_fim}}
+				<label>CNPJ</label>
+				</div>
+				<div class="input-field col s6">
+					{{=form.custom.widget.telefone}}
+				<label>Telefone</label>
 				</div>
 			</div>
 
 
+			<div class="row">
+				<div class="input-field col s12">
+					{{=form.custom.widget.endereco}}
+				<label>Endereço</label>
+				</div>
+			</div>
+
+		<div class="row">
+			<div class="input-field col s12">
+				{{=form.custom.widget.email}}
+			  <label data-error="E-mail invalido" data-success="" for="email">E-mail</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12">
+				<label>Serviço prestado</label>
+				{{=form.custom.widget.servico}}
+			</div>
+		</div>
 
 	</div>
 		</div>
@@ -73,9 +88,15 @@
 	</div>
 </div>
 </div>
-</div>
+
  <br><br><br><br>
 </body>
+
+<script>
+$(document).ready(function() {
+	$('select').material_select();
+})
+</script>
 
 
 {{=form.custom.end}}

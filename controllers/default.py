@@ -27,6 +27,9 @@ def user():
     """
     return dict(form=auth())
 
+def ver_usuarios():
+    grid = SQLFORM.grid(db.auth_user)
+    return dict(grid=grid)
 
 @cache.action()
 def download():
@@ -45,33 +48,6 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
-def search(fields, url):
-    if 'edit' in request.args:
-        edit = request.args
-        response.flash = edit
-        parametro = edit[2]
-        url = 'editar_fornecedor/' + parametro
-        redirect(URL(url))
-
-    form = FORM('',
-                INPUT(_name='first_name', _id='first_name',
-                      value=sv.first_name, _type='text',
-                      _placeholder='First Name'),
-                INPUT(_name='last_name', _id='last_name',
-                      value=sv.last_name, _type='text',
-                      _placeholder='Last Name'),
-                SPAN(INPUT(_name='search_text', _id='search_text',
-                           value=sv.search_text, _style="width: 200px;",
-                           _type='text',_placeholder='Search'),
-                     BUTTON('GO', _class='btn go', style='padding-bottom: 50px;',
-                            _type='submit'),
-                     _class='input-append'),
-                _id='defaultSearch', _class='row-fluid form-inline',
-                _action=url, _method='get')
-
-    return form
-
 
 def index():
     return dict()
@@ -217,7 +193,7 @@ def equipamento_details():
 
 # LOCAÇÃO DE EQUIPAMENTOS
 
-def cadastrar_pedido():
+def cadastro_pedido():
     form = SQLFORM(Pedido)
     if form.process().accepted:
         session.flash = ''
