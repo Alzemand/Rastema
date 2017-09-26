@@ -53,12 +53,17 @@ response.form_label_separator = myconf.take('forms.separator')
 
 from gluon.tools import Auth, Service, PluginManager
 
+# Conexão MYSQL
+db = DAL('mysql://root:linux@127.0.0.1/rastema', bigint_id=True)
+
+
 auth = Auth(db)
 service = Service()
 plugins = PluginManager()
 
+
 ## create all tables needed by auth if not custom tables
-auth.define_tables(username=False, signature=False)
+auth.define_tables(username=False, signature=False, migrate=True)
 
 ## configure email
 mail = auth.settings.mailer
@@ -88,8 +93,6 @@ auth.settings.reset_password_requires_verification = True
 ## >>> for row in rows: print row.id, row.myfield
 #########################################################################
 
-# Conexão MYSQL
-db = DAL('mysql://root:linux@127.0.0.1/rastema', bigint_id=True)
 
 
 # Tabela Fornecedor

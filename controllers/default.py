@@ -27,6 +27,13 @@ def user():
     """
     return dict(form=auth())
 
+# def mylogin():
+#     return dict(form=auth.login())
+# def myregister():
+#     return dict(form=auth.register())
+# def myprofile():
+#     return dict(form=auth.profile())
+
 def ver_usuarios():
     grid = SQLFORM.grid(db.auth_user)
     return dict(grid=grid)
