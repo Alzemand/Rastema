@@ -120,6 +120,8 @@ Fornecedor = db.define_table('fornecedor',
 # Tabela de Equipamento
 
 Equipamento = db.define_table('equipamento',
+    Field('fornecedor', 'reference fornecedor', notnull = True,   widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='input-field'), ondelete='SET NULL'),
     Field('descricao', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate'), label = 'Descrição'),
     Field('ax_cod', 'bigint' , widget = lambda field, value:
@@ -133,8 +135,7 @@ Equipamento = db.define_table('equipamento',
 # Tabela de vinculo de fornecedor e equipamento (Pedido)
 
 Pedido = db.define_table('pedido',
-    Field('fornecedor', 'reference fornecedor',  widget = lambda field, value:
-    SQLFORM.widgets.options.widget(field, value, _class='input-field'), ondelete='SET NULL'),
+
     Field('equipamento', 'reference equipamento',  widget = lambda field, value:
     SQLFORM.widgets.options.widget(field, value, _class='input-field'), ondelete='SET NULL'),
     Field('valor', 'decimal(7,2)', widget = lambda field, value:

@@ -15,5 +15,6 @@ Fornecedor.email.requires = IS_EMAIL()
 
 # Validador Equipamento
 
+Equipamento.fornecedor.requires = [IS_IN_DB(db, db.fornecedor.cnpj, '%s' % (db.fornecedor.cnpj))]
 Equipamento.tag.requires = [IS_TAG(), IS_NOT_IN_DB(db, 'equipamento.tag')]
 Equipamento.descricao.requires = [IS_NOT_EMPTY(error_message='Informe o nome do equipamento'), IS_UPPER()]

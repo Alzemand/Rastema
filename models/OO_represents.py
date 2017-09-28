@@ -1,36 +1,12 @@
 # -*- coding: utf-8 -*-
-# flavio@casacurta.com
+# Alzemand
 import re
 patern = re.compile('([^\d]+)')
 UNMASK = lambda num: re.sub(patern, '', num or '')
 
 
 '''
-db.define_table('mytable'
-               , Field('CCPF', 'decimal(11,0)')
-               , Field('CCNPJ', 'decimal(14,0)')
-               , Field('SALARIO', 'decimal(7,2)')
-               , Field('CBARRA1', 'decimal(12,0)'))
 
-mytable = db['mytable']
-
-mytable.id.writable = False
-mytable.CCPF.label = 'CPF'
-mytable.CCPF.writable = True
-mytable.CCPF.requires = [IS_NOT_EMPTY(), IS_CPF()]
-mytable.CCPF.represent = lambda value, row: MASK_CPF()(value)
-mytable.CCNPJ.label = 'CNPJ'
-mytable.CCNPJ.writable = True
-mytable.CCNPJ.requires = [IS_NOT_EMPTY(), IS_CNPJ()]
-mytable.CCNPJ.represent = lambda value, row: MASK_CNPJ()(value)
-mytable.SALARIO.label = 'Salário'
-mytable.SALARIO.writable = True
-mytable.SALARIO.requires = [IS_NOT_EMPTY(), IS_DECIMAL(0,99999.99, dot=',')]
-mytable.SALARIO.represent = lambda value, row: MASK_DECIMAL(dot=',')(value, 2)
-mytable.CBARRA1.label = 'Código de Barra'
-mytable.CBARRA1.writable = True
-mytable.CBARRA1.requires = [IS_NOT_EMPTY(), IS_MODULO_10(mask='-')]
-mytable.CBARRA1.represent = lambda value, row: MASK_DV(mask='-')(value)
 
 '''
 
@@ -92,24 +68,6 @@ db.define_table('mytable'
                , Field('CBARRA1', 'decimal(12,0)'))
 
 mytable = db['mytable']
-
-mytable.id.writable = False
-mytable.CCPF.label = 'CPF'
-mytable.CCPF.writable = True
-mytable.CCPF.requires = [IS_NOT_EMPTY(), IS_CPF()]
-mytable.CCPF.represent = lambda value, row: MASK_CPF()(value)
-mytable.CCNPJ.label = 'CNPJ'
-mytable.CCNPJ.writable = True
-mytable.CCNPJ.requires = [IS_NOT_EMPTY(), IS_CNPJ()]
-mytable.CCNPJ.represent = lambda value, row: MASK_CNPJ()(value)
-mytable.SALARIO.label = 'Salário'
-mytable.SALARIO.writable = True
-mytable.SALARIO.requires = [IS_NOT_EMPTY(), IS_DECIMAL(0,99999.99, dot=',')]
-mytable.SALARIO.represent = lambda value, row: MASK_DECIMAL(dot=',')(value, 2)
-mytable.CBARRA1.label = 'Código de Barra'
-mytable.CBARRA1.writable = True
-mytable.CBARRA1.requires = [IS_NOT_EMPTY(), IS_MODULO_10(mask='-')]
-mytable.CBARRA1.represent = lambda value, row: MASK_DV(mask='-')(value)
 
 SDS
     example::

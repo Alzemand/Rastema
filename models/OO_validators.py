@@ -387,6 +387,15 @@ class IS_TAG(object):
         except:
             return (tag, str(tag) + 'Não é uma tag valida' )
 
+class IS_STRING(object):
+    """
+        Converts to string case::
+    """
+
+    def __call__(self, value):
+        value = str(value)
+        return (value, None)
+
 
 class E_DINHEIRO(object):
     def __init__(self, format=True, error_message='Digite o valor!'):

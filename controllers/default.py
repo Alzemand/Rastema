@@ -20,7 +20,7 @@ def user():
     http://..../[app]/default/user/change_password
     http://..../[app]/default/user/manage_users (requires membership in
     http://..../[app]/default/user/bulk_register
-    use @auth.requires_login()
+    use # @auth.requires_login()
         @auth.requires_membership('group name')
         @auth.requires_permission('read','table name',record_id)
     to decorate functions that need access control
@@ -59,7 +59,7 @@ def call():
 def index():
     return dict()
 
-@auth.requires_login()
+# @auth.requires_login()
 def level():
     return dict()
 
@@ -76,7 +76,7 @@ def teste():
 
 # FORNECEDOR
 
-@auth.requires_login()
+# @auth.requires_login()
 def cadastro_fornecedor():
     form = SQLFORM(Fornecedor)
     if form.process().accepted:
@@ -89,7 +89,7 @@ def cadastro_fornecedor():
             response.flash = 'Preencha o formulário'
     return dict(form=form)
 
-@auth.requires_login()
+# @auth.requires_login()
 def ver_fornecedor():
     if 'edit' in request.args:
         edit = request.args
@@ -115,7 +115,7 @@ def ver_fornecedor():
                        csv=False, xml=False, json=False))
     return dict(grid=grid)
 
-@auth.requires_login()
+# @auth.requires_login()
 def editar_fornecedor():
     form = SQLFORM(Fornecedor, request.args(0, cast=str))
     if form.process().accepted:
@@ -146,9 +146,12 @@ def fornecedor_details():
 
 def cadastro_equipamento():
     form = SQLFORM(Equipamento)
+    db.executesql("SET FOREIGN_KEY_CHECKS = 0;")
     if form.process().accepted:
+        db.executesql("SET FOREIGN_KEY_CHECKS = 0;")
         session.flash = 'Novo Equipamento: %s' % form.vars.descricao
         redirect(URL('cadastro_equipamento'))
+        db.executesql("SET FOREIGN_KEY_CHECKS = 1;")
     elif form.errors:
         response.flash = 'Erros encontrados no formulário'
     else:
