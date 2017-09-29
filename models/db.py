@@ -128,6 +128,7 @@ Equipamento = db.define_table('equipamento',
     SQLFORM.widgets.string.widget(field, value, _class='validate'), label='Código AX'),
     Field('tag', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
+    Field('itens', 'list:string'),
     format = "%(descricao)s  | TAG: %(tag)s",
     # primarykey=['tag']
     )

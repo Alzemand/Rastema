@@ -232,6 +232,7 @@
 'invalid request': 'requisição inválida',
 'Invalid reset password': 'Invalid reset password',
 'Invalid username': 'Invalid username',
+'Itens': 'Itens',
 'JSON': 'JSON',
 'JSON export of visible columns': 'JSON export of visible columns',
 'Key': 'Chave',

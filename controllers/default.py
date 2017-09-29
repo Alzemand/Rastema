@@ -148,8 +148,8 @@ def cadastro_equipamento():
     form = SQLFORM(Equipamento)
     db.executesql("SET FOREIGN_KEY_CHECKS = 0;")
     if form.process().accepted:
-        db.executesql("SET FOREIGN_KEY_CHECKS = 0;")
-        session.flash = 'Novo Equipamento: %s' % form.vars.descricao
+        db(db.equipamento.id == form.vars.id).update(fornecedor= str(form.vars.fornecedor))
+        session.flash = 'Novo Equipamento: %s - %s - %s' % (form.vars.descricao, form.vars.id, str(form.vars.fornecedor))
         redirect(URL('cadastro_equipamento'))
         db.executesql("SET FOREIGN_KEY_CHECKS = 1;")
     elif form.errors:
@@ -173,7 +173,8 @@ def ver_equipamento():
         url = 'equipamento_details/%s' % (parametro)
         redirect(URL(url))
     grid = SQLFORM.grid(Equipamento, create=False, advanced_search = False,
-    fields=[db.equipamento.descricao,
+    fields=[db.equipamento.fornecedor,
+            db.equipamento.descricao,
             db.equipamento.tag,
             db.equipamento.ax_cod],
             maxtextlength=30,
@@ -183,6 +184,8 @@ def ver_equipamento():
 
 def editar_equipamento():
     db.equipamento.id.readable = False
+    db.equipamento.fornecedor.writable = False
+    db.equipamento.fornecedor.readable = False
     form = SQLFORM(Equipamento, request.args(0, cast=str))
     if form.process().accepted:
         session.flash = 'Equipamento atualizado: %s' % form.vars.descricao
