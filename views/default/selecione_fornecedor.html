@@ -1,0 +1,19 @@
+{{extend 'layout.html'}}
+
+
+<body class="grey lighten-3">
+<h5 class="header col s12 light">Fornecedores</h5>
+<br><br><br><br>
+<div class="container">
+	<div class="collection">
+		{{for fornecedor in fornecedor_select:}}
+			<a href="cadastro_pedido/{{=fornecedor.id}}" class="collection-item"><span class="badge">{{=fornecedor.cnpj}}</span>{{=fornecedor.nome}}</a>
+		{{pass}}
+
+   </div>
+
+ </div>
+
+
+
+</body>

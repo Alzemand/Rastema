@@ -330,6 +330,7 @@
 'Remember me (for 30 days)': ' ',
 'Request Reset Password': 'Solicitar Redefinição de senha',
 'Request reset password': 'Solicitar redefinição de senha',
+'Reset': 'Reset',
 'reset de senha': 'reset de senha',
 'Reset Password': 'Resetar Senha',
 'Reset Password key': 'Resetar chave de senha',

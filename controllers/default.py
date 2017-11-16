@@ -74,7 +74,7 @@ def teste():
     return dict()
 
 
-# FORNECEDOR
+# --------------------------------------------------------------------FORNECEDOR
 
 # @auth.requires_login()
 def cadastro_fornecedor():
@@ -117,7 +117,8 @@ def ver_fornecedor():
 
 # @auth.requires_login()
 def editar_fornecedor():
-    form = SQLFORM(Fornecedor, request.args(0, cast=str))
+    db.fornecedor.id.readable = False
+    form = SQLFORM(Fornecedor, request.args(0, cast=int))
     if form.process().accepted:
         session.flash = 'Fornecedor atualizado: %s' % form.vars.nome
         redirect(URL('ver_fornecedor'))
@@ -128,7 +129,6 @@ def editar_fornecedor():
             response.flash = 'Atualização de dados'
     return dict(form=form)
 
-
 # Ver detalhes dos fornecedores
 
 def fornecedor_details():
@@ -136,22 +136,21 @@ def fornecedor_details():
     Aqui o request.arg (0) pega o parametro URL e executa o select no banco de
     dados "http://0.0.0.0/Rastema/default/fornecedor_details/09477210000140"
     '''
-    fornecedor_details = db(Fornecedor.cnpj == request.args(0)).select()
+    fornecedor_details = db(Fornecedor.id == request.args(0)).select()
     return dict(fornecedor_details=fornecedor_details)
 
 
 
 
-# EQUIPAMENTOS
+# ------------------------------------------------------------------EQUIPAMENTOS
 
 def cadastro_equipamento():
     form = SQLFORM(Equipamento)
-    db.executesql("SET FOREIGN_KEY_CHECKS = 0;")
+    # db.executesql("SET FOREIGN_KEY_CHECKS = 0;")
     if form.process().accepted:
-        db(db.equipamento.id == form.vars.id).update(fornecedor= str(form.vars.fornecedor))
-        session.flash = 'Novo Equipamento: %s - %s - %s' % (form.vars.descricao, form.vars.id, str(form.vars.fornecedor))
+        session.flash = 'Novo Equipamento: %s' % (form.vars.descricao)
         redirect(URL('cadastro_equipamento'))
-        db.executesql("SET FOREIGN_KEY_CHECKS = 1;")
+        # db.executesql("SET FOREIGN_KEY_CHECKS = 1;")
     elif form.errors:
         response.flash = 'Erros encontrados no formulário'
     else:
@@ -204,12 +203,18 @@ def equipamento_details():
 
 
 
-# LOCAÇÃO DE EQUIPAMENTOS
+# -------------------------------------------------------LOCAÇÃO DE EQUIPAMENTOS
+def selecione_fornecedor():
+    fornecedor_select = db(db.fornecedor.id > 0).select()
+    selecione_fornecedor = request.args(0)
+    return dict(fornecedor_select=fornecedor_select)
+
 
 def cadastro_pedido():
+
     form = SQLFORM(Pedido)
     if form.process().accepted:
-        session.flash = ''
+        session.flash = 'Novo pedido cadastrado'
         redirect(URL(''))
     elif form.errors:
         response.flash = ''

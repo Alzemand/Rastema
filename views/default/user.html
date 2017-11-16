@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col s12 l8 offset-l2 m8 offset-m2">
         <div class="card-panel hoverable"><br>
-          <i class="large center material-icons" style="color:#2196f3;">account_circle</i>
+          <i class="large center material-icons" style="color:#0d47a1;">account_circle</i>
           <br><br>
         <div id="web2py_user_form" class="row">
           <div class="container">
@@ -22,7 +22,7 @@
                 form.add_button(T('Sign Up'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-default')
             pass
             if not 'request_reset_password' in auth.settings.actions_disabled:
-                form.add_button(T('Resetar'),URL(args='request_reset_password'),_class='btn btn-default')
+                form.add_button(T('Reset'),URL(args='request_reset_password'),_class='btn btn-default')
             pass
         pass
         =form

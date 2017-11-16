@@ -54,7 +54,7 @@ response.form_label_separator = myconf.take('forms.separator')
 from gluon.tools import Auth, Service, PluginManager
 
 # Conexão MYSQL
-db = DAL('mysql://root:linux@127.0.0.1/rastema', bigint_id=True)
+db = DAL('mysql://root:linux@127.0.0.1/rastema')
 
 
 auth = Auth(db)
@@ -63,7 +63,7 @@ plugins = PluginManager()
 
 
 ## create all tables needed by auth if not custom tables
-auth.define_tables(username=False, signature=False, migrate=True)
+auth.define_tables(username=False, signature=True, migrate=True)
 
 ## configure email
 mail = auth.settings.mailer
@@ -73,7 +73,7 @@ mail.settings.login = myconf.take('smtp.login')
 
 ## configure auth policy
 auth.settings.registration_requires_verification = False
-auth.settings.registration_requires_approval = True
+auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
 #########################################################################
@@ -113,14 +113,15 @@ Fornecedor = db.define_table('fornecedor',
     Field('telefone', 'string', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('servico', 'text'),
-    primarykey=['cnpj'],
+    auth.signature,
+    #primarykey=['cnpj'], # Provavelmente um bug do web2py linha 1442 str(long())
     format = "%(nome)s"
     )
 
 # Tabela de Equipamento
 
 Equipamento = db.define_table('equipamento',
-    Field('fornecedor', 'reference fornecedor', notnull = True,   widget = lambda field, value:
+    Field('fornecedor', 'reference fornecedor', widget = lambda field, value:
     SQLFORM.widgets.options.widget(field, value, _class='input-field'), ondelete='SET NULL'),
     Field('descricao', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate'), label = 'Descrição'),
@@ -129,25 +130,26 @@ Equipamento = db.define_table('equipamento',
     Field('tag', 'string' , widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('itens', 'list:string'),
-    format = "%(descricao)s  | TAG: %(tag)s",
+    auth.signature,
+    format = "%(descricao)s  | TAG: %(tag)s"
     # primarykey=['tag']
     )
 
 # Tabela de vinculo de fornecedor e equipamento (Pedido)
 
 Pedido = db.define_table('pedido',
-
     Field('equipamento', 'reference equipamento',  widget = lambda field, value:
     SQLFORM.widgets.options.widget(field, value, _class='input-field'), ondelete='SET NULL'),
+    Field('plataforma', 'string',  widget = lambda field, value:
+    SQLFORM.widgets.options.widget(field, value, _class='input-field')),
     Field('valor', 'decimal(7,2)', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-    Field('data_pedido', 'date', widget = lambda field, value:
-    SQLFORM.widgets.string.widget(field, value, _class='datepicker')),
     Field('data_prevista_fim', 'date', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='datepicker')),
+    auth.signature
     # format = "%(equipamento_nome)s - %(fornecedor_nome)s"
     )
-#
+
 # # Tabela de recebimento de almoxarifado
 #
 # Almoxarife = db.define_table('almoxarife',

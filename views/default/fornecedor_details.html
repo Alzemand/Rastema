@@ -1,7 +1,7 @@
 {{extend 'layout.html'}}
 
 {{# -*- coding: utf-8 -*-}}
-
+{{empresa=0}}
 {{for empresa in fornecedor_details:}}
 	{{empresa}}
 {{pass}}
@@ -15,7 +15,7 @@
 		<div class="card-panel hoverable"><br>
 		<div class="row">
 			<div class="container">
-				<div style="text-align: center;"><img class="responsive-img" src="/Rastema/static/images/empresa.svg" height="100px" width="100px"><br><br>
+				<div style="text-align: center;"><i class="large material-icons" style="color:#0d47a1;">business</i><br><br>
 		  </div>
 
 			<div class="row">
