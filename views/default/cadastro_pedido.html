@@ -6,7 +6,6 @@
 <h5 class="header col s12 light">Cadastrar Pedido</h5>
 <br><br><br><br>
 
-{{fornecedor_selecionado(request.args[0])}}
 
 <div class="container">
 
@@ -26,42 +25,21 @@
 			<div class="row">
 				<div class="input-field col s12">
 					{{=form.custom.widget.plataforma}}
-				<label>Plataforma</label>
+				<label>Centro de custo</label>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="input-field col s6">
 					{{=form.custom.widget.data_prevista_fim}}
-				<label>CNPJ</label>
+				<label>Data prevista fim</label>
 				</div>
 				<div class="input-field col s6">
-					{{=form.custom.widget.telefone}}
-				<label>Telefone</label>
+					{{=form.custom.widget.valor}}
+				<label>Valor dia</label>
 				</div>
 			</div>
 
-
-			<div class="row">
-				<div class="input-field col s12">
-					{{=form.custom.widget.endereco}}
-				<label>Endereço</label>
-				</div>
-			</div>
-
-		<div class="row">
-			<div class="input-field col s12">
-				{{=form.custom.widget.email}}
-			  <label data-error="E-mail invalido" data-success="" for="email">E-mail</label>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col s12">
-				<label>Serviço prestado</label>
-				{{=form.custom.widget.servico}}
-			</div>
-		</div>
 
 	</div>
 		</div>
@@ -82,7 +60,6 @@
  	<br>
 
 	</div>
-</div>
 </div>
 
  <br><br><br><br>

@@ -114,8 +114,8 @@ Fornecedor = db.define_table('fornecedor',
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('servico', 'text'),
     auth.signature,
-    #primarykey=['cnpj'], # Provavelmente um bug do web2py linha 1442 str(long())
     format = "%(nome)s"
+    #primarykey=['cnpj'], # Provavelmente um bug do web2py linha 1442 str(long())
     )
 
 # Tabela de Equipamento
@@ -146,57 +146,6 @@ Pedido = db.define_table('pedido',
     SQLFORM.widgets.string.widget(field, value, _class='validate')),
     Field('data_prevista_fim', 'date', widget = lambda field, value:
     SQLFORM.widgets.string.widget(field, value, _class='datepicker')),
-    auth.signature
-    # format = "%(equipamento_nome)s - %(fornecedor_nome)s"
+    auth.signature,
+    format = "%(equipamento)s  | TAG: %(fornecedor)s"
     )
-
-# # Tabela de recebimento de almoxarifado
-#
-# Almoxarife = db.define_table('almoxarife',
-#     Field('tag', 'string', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('fornecedor_equipamento', 'reference fornecedor_equipamento',  widget = lambda field, value:
-#     SQLFORM.widgets.options.widget(field, value, _class='browser-default'), ondelete='SET NULL'),
-#     Field('fornecedor', 'bigint', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('equipamento', 'bigint', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('fornecedor_nome', 'string', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('equipamento_nome', 'string', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('plataforma', 'string', widget = lambda field, value:
-#     SQLFORM.widgets.options.widget(field, value, _class='browser-default')),
-#     Field('nf_entrada', 'integer', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('nf_embarque', 'integer', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('nf_saida', 'integer', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('valor', 'decimal(7,2)', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('data_recebida', 'date', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('data_devolucao', 'date', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('data_retirada', 'date', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('data_pedido', 'date', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='date')),
-#     Field('data_prevista_fim', 'date', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='date')),
-#     Field('status', 'string', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     format = "%(tag)s - %(equipamento_nome)s"
-#     )
-#
-# # Atualização de valores
-#
-# Valor = db.define_table('valor',
-#     Field('almoxarife', 'reference almoxarife',  widget = lambda field, value:
-#     SQLFORM.widgets.options.widget(field, value, _class='browser-default'), ondelete='SET NULL'),
-#     Field('valor', 'decimal(7,2)', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='validate')),
-#     Field('data_atualizacao', 'date', widget = lambda field, value:
-#     SQLFORM.widgets.string.widget(field, value, _class='date')),
-#     )

@@ -204,28 +204,64 @@ def equipamento_details():
 
 
 # -------------------------------------------------------LOCAÇÃO DE EQUIPAMENTOS
-def selecione_fornecedor():
-    fornecedor_select = db(db.fornecedor.id > 0).select()
-    selecione_fornecedor = request.args(0)
-    return dict(fornecedor_select=fornecedor_select)
+# def selecione_fornecedor():
+#     fornecedor_select = db(db.fornecedor.id > 0).select()
+#     selecione_fornecedor = request.args(0)
+#     return dict(fornecedor_select=fornecedor_select)
 
 
 def cadastro_pedido():
-
     form = SQLFORM(Pedido)
     if form.process().accepted:
         session.flash = 'Novo pedido cadastrado'
         redirect(URL(''))
     elif form.errors:
-        response.flash = ''
+        response.flash = 'Erros no formulário!'
     else:
         if not response.flash:
-            response.flash = ''
+            response.flash = 'Atualização de dados'
     return dict(form=form)
 
+def ver_pedido():
+    if 'edit' in request.args:
+        edit = request.args
+        response.flash = edit
+        parametro = edit[2]
+        url = 'editar_pedido/' + parametro
+        redirect(URL(url))
+    if 'view' in request.args:
+        view = request.args
+        response.flash = view
+        parametro = view[2]
+        url = 'pedido_details/%s' % (parametro)
+        redirect(URL(url))
+    grid = SQLFORM.grid(Pedido, create=False, advanced_search = False,
+    fields=[db.pedido.id,
+            db.pedido.equipamento,
+            db.pedido.plataforma,
+            db.pedido.data_prevista_fim,
+            db.pedido.valor,
+            db.pedido.created_on
+            ],
+            maxtextlength=30,
+    exportclasses=dict(tsv_with_hidden_cols=False,
+                       csv=False, xml=False, json=False))
+    return dict(grid=grid)
 
-
-
+def editar_pedido():
+    # db.equipamento.id.readable = False
+    # db.equipamento.fornecedor.writable = False
+    # db.equipamento.fornecedor.readable = False
+    form = SQLFORM(Equipamento, request.args(0, cast=int))
+    if form.process().accepted:
+        session.flash = 'Equipamento atualizado: %s' % form.vars.descricao
+        redirect(URL('ver_equipamento'))
+    elif form.errors:
+        response.flash = 'Erros no formulário!'
+    else:
+        if not response.flash:
+            response.flash = 'Atualização de dados'
+    return dict(form=form)
 
 
 
